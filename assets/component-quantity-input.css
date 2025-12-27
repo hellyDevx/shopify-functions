@@ -77,7 +77,6 @@
 /* Active / Selected state */
 .pack-option.is-active,
 .pack-option input:checked + .pack-option__content {
-  background: #fafafa;
   border-color: #000;
 }
 
