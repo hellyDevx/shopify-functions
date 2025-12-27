@@ -113,17 +113,14 @@
                       {% assign qty = pack | strip | plus: 0 %}
                       {% assign is_first = forloop.first %}
 
-                      <label
-                        class="pack-option {% if is_first %}is-active{% endif %}"
-                      >
+                      <label class="pack-option {% if is_first %}is-active{% endif %}">
                         <input
                           type="radio"
-                          name="pack_size"
+                          name="quantity"
                           value="{{ qty }}"
                           {% if is_first %}
                             checked
                           {% endif %}
-                          data-pack-option
                         >
 
                         <span class="pack-option__content">
@@ -132,18 +129,12 @@
                           <span
                             class="pack-option__price"
                             data-pack-price
-                            data-pack-qty="{{ qty }}"
                           >
                             {{ product.price | times: qty | money }}
                           </span>
 
                           {% unless is_first %}
-                            <span
-                              class="pack-option__badge"
-                              data-pack-badge
-                            >
-                              Save
-                            </span>
+                            <span class="pack-option__badge"> Save </span>
                           {% endunless %}
                         </span>
                       </label>
