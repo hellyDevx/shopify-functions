@@ -1,0 +1,99 @@
+.pack-selector {
+  margin: 24px 0;
+}
+
+.pack-selector__title {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Grid adapts to number of packs */
+.pack-selector__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+/* Pack option card */
+.pack-option {
+  position: relative;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  background: #fff;
+}
+
+/* Hide radio input */
+.pack-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Inner content */
+.pack-option__content {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Label */
+.pack-option__label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Price */
+.pack-option__price {
+  font-size: 13px;
+  color: #444;
+}
+
+/* Save badge */
+.pack-option__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  background: #000;
+  color: #fff;
+  border-radius: 4px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Hover state */
+.pack-option:hover {
+  border-color: #000;
+}
+
+/* Active / Selected state */
+.pack-option.is-active,
+.pack-option input:checked + .pack-option__content {
+  background: #fafafa;
+  border-color: #000;
+}
+
+/* Accessibility focus */
+.pack-option input:focus-visible + .pack-option__content {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .pack-selector {
+    margin: 20px 0;
+  }
+
+  .pack-option__content {
+    padding: 12px 14px;
+  }
+}
