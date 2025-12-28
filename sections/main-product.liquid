@@ -125,17 +125,6 @@
 
                         <span class="pack-option__content">
                           <span class="pack-option__label"> Pack of {{ qty }} </span>
-
-                          <span
-                            class="pack-option__price"
-                            data-pack-price
-                          >
-                            {{ product.price | times: qty | money }}
-                          </span>
-
-                          {% unless is_first %}
-                            <span class="pack-option__badge"> Save </span>
-                          {% endunless %}
                         </span>
                       </label>
                     {% endfor %}
