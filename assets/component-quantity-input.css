@@ -96,3 +96,7 @@
     padding: 12px 14px;
   }
 }
+
+.product-form__quantity {
+  display: none;
+}

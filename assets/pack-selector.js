@@ -19,7 +19,7 @@
     console.log('[Pack Selector] hiddenInput:', hiddenInput);
 
     const quantityInput = document.querySelector(
-      '.quantity__input'
+      '.product__info-wrapper .quantity__input'
     );
 
     console.log('[Pack Selector] quantityInput:', quantityInput);
