@@ -409,6 +409,7 @@
                     id="CartDrawer-Loyalty"
                     aria-label="Apply loyalty points"
                     data-loyalty-points="{{ loyalty_points }}"
+                    {% if cart.attributes.apply_loyalty == 'true' %}checked{% endif %}
                   >
                   Apply loyalty points <span class="cart-loyalty__available">({{ loyalty_points }} available)</span>
                 </label>
