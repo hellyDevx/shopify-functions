@@ -11,6 +11,31 @@
   .drawer {
     visibility: hidden;
   }
+
+  /* Loyalty checkbox styling in cart drawer footer */
+  .cart-loyalty {
+    font-size: 12px;
+    color: #111;
+    padding: 0 0 1.5rem 0;
+    border-bottom: 1px solid #e6e6e6;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .cart-loyalty__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .cart-loyalty__available {
+    font-weight: 600;
+    margin-left: 4px;
+    color: #222;
+  }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
@@ -374,6 +399,22 @@
         <!-- Start blocks -->
         <!-- Subtotals -->
 
+          
+            {%- assign loyalty_points = cart.attributes.loyalty_points_available | default: cart.attributes.available_loyalty | default: customer.metafields.loyalty.points -%}
+            {%- if customer and loyalty_points != blank -%}
+              <div class="cart-loyalty">
+                <label class="cart-loyalty__label">
+                  <input
+                    type="checkbox"
+                    id="CartDrawer-Loyalty"
+                    aria-label="Apply loyalty points"
+                    data-loyalty-points="{{ loyalty_points }}"
+                  >
+                  Apply loyalty points <span class="cart-loyalty__available">({{ loyalty_points }} available)</span>
+                </label>
+              </div>
+            {%- endif -%}
+
         <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
           <div class="totals" role="status">
             <h2 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h2>
@@ -392,6 +433,15 @@
                 {%- endfor -%}
               </ul>
             {%- endif -%}
+
+            {%- comment -%}
+              Loyalty points UI: expects the backend (app) to expose available points
+              via one of these Liquid values: `cart.attributes.loyalty_points_available`,
+              `cart.attributes.available_loyalty`, or `customer.metafields.loyalty.points`.
+              When the checkbox is toggled we update cart attributes via AJAX
+              (/cart/update.js) so a backend app can react and apply the loyalty.
+            {%- endcomment -%}
+         
           </div>
 
           <small class="tax-note caption-large rte">
