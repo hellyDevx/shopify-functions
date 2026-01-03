@@ -504,3 +504,30 @@
     });
   });
 </script>
+
+<script>
+document.addEventListener('change', function (e) {
+  const checkbox = e.target.closest('#CartDrawer-Loyalty');
+  if (!checkbox) return;
+
+  const apply = checkbox.checked ? 'true' : '';
+
+  fetch('/cart/update.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      attributes: {
+        apply_loyalty: apply
+      }
+    })
+  })
+  .then(res => res.json())
+  .then(cart => {
+    console.log('Loyalty attribute updated:', cart.attributes);
+    document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+  })
+  .catch(console.error);
+});
+</script>
