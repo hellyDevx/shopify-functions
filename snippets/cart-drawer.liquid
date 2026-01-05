@@ -382,7 +382,7 @@
               <span class="summary__title">
                 {{ 'sections.cart.note' | t }}
                 {% render 'icon-caret' %}
-              </span>
+              </span> 
             </summary>
             <cart-note class="cart__note field">
               <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
@@ -511,7 +511,7 @@ document.addEventListener('change', function (e) {
   const checkbox = e.target.closest('#CartDrawer-Loyalty');
   if (!checkbox) return;
 
-  const apply = checkbox.checked ? 'true' : '';
+  const apply = checkbox.checked ? 'true' : 'false';
 
   fetch('/cart/update.js', {
     method: 'POST',
