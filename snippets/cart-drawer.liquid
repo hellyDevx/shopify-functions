@@ -511,7 +511,7 @@ document.addEventListener('change', function (e) {
   const checkbox = e.target.closest('#CartDrawer-Loyalty');
   if (!checkbox) return;
 
-  const apply = checkbox.checked ? 'true' : 'false';
+  const apply = checkbox.checked ? 'true' : false;
 
   fetch('/cart/update.js', {
     method: 'POST',
@@ -521,12 +521,41 @@ document.addEventListener('change', function (e) {
     body: JSON.stringify({
       attributes: {
         apply_loyalty: apply
-      }
+      },
+      sections: ['cart-drawer', 'cart-icon-bubble'],
+      sections_url: window.location.pathname
     })
   })
   .then(res => res.json())
   .then(cart => {
     console.log('Loyalty attribute updated:', cart.attributes);
+    
+    // Update the cart drawer UI
+    if (cart.sections && cart.sections['cart-drawer']) {
+      const cartDrawerElement = document.getElementById('CartDrawer');
+      if (cartDrawerElement) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(cart.sections['cart-drawer'], 'text/html');
+        const newDrawerInner = doc.querySelector('.drawer__inner');
+        if (newDrawerInner) {
+          cartDrawerElement.querySelector('.drawer__inner').innerHTML = newDrawerInner.innerHTML;
+        }
+      }
+    }
+    
+    // Update cart icon bubble
+    if (cart.sections && cart.sections['cart-icon-bubble']) {
+      const cartIconBubble = document.getElementById('cart-icon-bubble');
+      if (cartIconBubble) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(cart.sections['cart-icon-bubble'], 'text/html');
+        const newBubble = doc.querySelector('.shopify-section');
+        if (newBubble) {
+          cartIconBubble.innerHTML = newBubble.innerHTML;
+        }
+      }
+    }
+    
     document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
   })
   .catch(console.error);
